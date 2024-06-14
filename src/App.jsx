@@ -1,14 +1,50 @@
-import { useState } from 'react'
-import './App.css'
+import { useState, useEffect } from 'react';
+import { getAllStarships } from './services/sw-api';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [starships, setStarships] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
+  const [error, setError] = useState(null); 
+
+  useEffect(() => {
+    const fetchStarships = async () => {
+      try {
+        setIsLoading(true); 
+        const starshipsData = await getAllStarships();
+        setStarships(starshipsData);
+        setIsLoading(false); 
+      } catch (error) {
+        setError(error); 
+        setIsLoading(false); 
+      }
+    };
+
+    fetchStarships();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>; 
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>; 
+  }
 
   return (
     <>
-    <h1>THis is the place holder for some thign cool</h1>
+      <div>
+        <h1>STAR WARS STARSHIPS</h1>
+      </div>
+      <div className="starships">
+        {starships.map((starship, index) => (
+          <div key={index} className="card">
+            <p>{starship.name}</p>
+          </div>
+        ))}
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
