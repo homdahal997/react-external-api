@@ -40,3 +40,20 @@
 .read-the-docs {
   color: #888;
 }
+.starships {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.card{
+  width: 30%;
+  margin-top: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #2F4F4F;
+  color: #FFFFFF;
+}
+h1{
+  background-color: black;
+  color: floralwhite;
+}

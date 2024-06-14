@@ -1,22 +1,23 @@
 import { useState, useEffect } from 'react';
 import { getAllStarships } from './services/sw-api';
+import Card from 'react-bootstrap/Card';
 import './App.css';
 
 function App() {
   const [starships, setStarships] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); 
-  const [error, setError] = useState(null); 
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchStarships = async () => {
       try {
-        setIsLoading(true); 
+        setIsLoading(true);
         const starshipsData = await getAllStarships();
         setStarships(starshipsData);
-        setIsLoading(false); 
+        setIsLoading(false);
       } catch (error) {
-        setError(error); 
-        setIsLoading(false); 
+        setError(error);
+        setIsLoading(false);
       }
     };
 
@@ -24,11 +25,11 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>; 
+    return <div>Error: {error.message}</div>;
   }
 
   return (
